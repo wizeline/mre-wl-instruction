@@ -1,0 +1,50 @@
+{
+  "Lambda": {
+    "Handler": "SegmentNews.lambda_handler",
+    "MemorySize": 256,
+    "TimeoutSecs": 30
+  },
+  "MRE": {
+    "Plugin": {
+      "Name": "SegmentNews",
+      "Description": "This plugin is used to clip news topics from summarized transcriptions using an LLM.",
+      "Class": "Classifier",
+      "ExecutionType": "Sync",
+      "SupportedMediaType": "Video",
+      "ContentGroups": [
+        "News"
+      ],
+      "ExecuteLambdaQualifiedARN": "",
+      "Configuration": {
+        "search_window_seconds": 200,
+        "summary_word_length": 150
+      },
+      "OutputAttributes": {
+        "Label": {
+          "Description": "A summary label"
+        },
+        "Summary": {
+          "Description": "A longer text summary of the clip."
+        },
+        "Celebrities": {
+          "Description": "A list of celebrities seen in the clip."
+        },
+        "Transcript": {
+          "Description": "The text transcript."
+        },
+        "Sentiment": {
+          "Description": "Sentiment observed."
+        },
+        "Scene_Description": {
+          "Description": "LLM generated."
+        }
+      },
+      "DependentPlugins": [
+        "DetectActivePresenter",
+        "DetectSceneLabels",
+        "DetectCelebrities",
+        "DetectSentiment"
+      ]
+    }
+  }
+}

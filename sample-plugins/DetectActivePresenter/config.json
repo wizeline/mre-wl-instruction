@@ -1,0 +1,43 @@
+{
+  "Lambda": {
+    "Handler": "DetectActivePresenter.lambda_handler",
+    "MemorySize": 256,
+    "TimeoutSecs": 60,
+    "IAMPolicyDocument": [],
+    "Layers": []
+  },
+  "MRE": {
+    "Plugin": {
+      "Name": "DetectActivePresenter",
+      "Description": "A plugin to detect whether a specific presenter is active and send a message",
+      "Class": "Featurer",
+      "ExecutionType": "Sync",
+      "SupportedMediaType": "Video",
+      "ContentGroups": [
+        "News"
+      ],
+      "ExecuteLambdaQualifiedARN": "",
+      "Configuration": {
+        "desired_presenters": "['Chris Wallace','Joe Biden','Donald Trump']",
+        "duration_seconds": 3,
+        "notification_message": "This is a Media Replay Engine message to inform you that the key presenter has arrived.",
+        "sns_topic_arn": ""
+      },
+      "OutputAttributes": {
+        "Label": {
+          "Description": "A note about the detection."
+        },
+        "Celebrities": {
+          "Description": "A list of celebrities found in the clip"
+        },
+        "Active_Presenter": {
+          "Description": "A boolean indicating whether the specific criteria was met for the active presenter."
+        }
+      },
+      "DependentPlugins": [
+        "DetectSpeech",
+        "DetectCelebrities"
+      ]
+    }
+  }
+}

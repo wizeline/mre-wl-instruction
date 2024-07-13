@@ -1,0 +1,32 @@
+[
+    {
+        "name": "boto3",
+        "compatible_runtimes": "python3.11",
+        "compatible_architectures": "x86_64"
+    },
+    {
+        "name": "ffmpeg",
+        "compatible_runtimes": "python3.11",
+        "compatible_architectures": "x86_64"
+    },
+    {
+        "name": "json-repair",
+        "compatible_runtimes": "python3.11",
+        "compatible_architectures": "x86_64"
+    },
+    {
+        "name": "opensearch-py",
+        "compatible_runtimes": "python3.11",
+        "compatible_architectures": "x86_64"
+    },
+    {
+        "name": "Pillow",
+        "compatible_runtimes": "python3.11",
+        "compatible_architectures": ""
+    },
+    {
+        "name": "pyAV",
+        "compatible_runtimes": "python3.11",
+        "compatible_architectures": ""
+    }
+]

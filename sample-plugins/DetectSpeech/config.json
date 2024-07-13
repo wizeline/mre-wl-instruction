@@ -1,0 +1,67 @@
+{
+  "Lambda": {
+    "Handler": "DetectSpeech.lambda_handler",
+    "MemorySize": 512,
+    "TimeoutSecs": 120,
+    "IAMPolicyDocument": [
+      {
+        "Actions": [
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:PutObject"
+        ],
+        "Resources": [
+          "*"
+        ]
+      },
+      {
+        "Actions": [
+          "transcribe:StartTranscriptionJob",
+          "transcribe:GetTranscriptionJob"
+        ],
+        "Resources": [
+          "*"
+        ]
+      }
+    ],
+    "Layers": [
+      "aws_mre_ffmpeg"
+    ]
+  },
+  "MRE": {
+    "Plugin": {
+      "Name": "DetectSpeech",
+      "Description": "Uses Amazon Transcribe to detect pauses in speech for the purpose of optimization",
+      "Class": "Featurer",
+      "ExecutionType": "Sync",
+      "SupportedMediaType": "Video",
+      "ContentGroups": [
+        "All"
+      ],
+      "ExecuteLambdaQualifiedARN": "",
+      "Configuration": {
+        "TrackNumber": "1",
+        "silence_duration_sec": "2",
+        "input_bucket_name": "to be provided",
+        "output_bucket_name": "to be provided",
+        "training_bucket_name": "to be provided",
+        "bias": "safe range",
+        "speaker_inference_enabled": "True",
+        "training_upload_enabled": "True",
+        "show_speaker_labels": "True",
+        "max_speaker_labels": "6"
+      },
+      "OutputAttributes": {
+        "Label": {
+          "Description": "Boolean result indicating whether speech is present"
+        },
+        "Transcription": {
+          "Description": "The raw output of Transcribe"
+        },
+        "Speaker": {
+          "Description": "Who said it"
+        }
+      }
+    }
+  }
+}
