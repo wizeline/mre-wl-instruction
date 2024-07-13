@@ -70,7 +70,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
 ./build-and-deploy.sh --app plugin-samples --region $REGION [--profile <aws-profile>]
 ```
 
-## Step 4: Plugin configuration: (WIP)
+## Step 3: Plugin configuration: (WIP)
 
 **Many (or all) steps in this section can be automated in script file, but at the point when this document is written, we don't have time and resource to update the script**
 
@@ -96,7 +96,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
    - Claude Instant
    - Embed English
 
-## Step 5: Install `live-news-segmenter` app
+## Step 4: Install `live-news-segmenter` app
 
 ```bash
 cd aws-media-replay-engine-gen-ai/samples/deployment
