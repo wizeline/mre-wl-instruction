@@ -70,7 +70,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
 ./build-and-deploy.sh --app plugin-samples --region $REGION [--profile <aws-profile>]
 ```
 
-## Step 3: Plugin configuration: (WIP)
+## Step 3: Plugin configuration:
 
 **Many (or all) steps in this section can be automated in script file, but at the point when this document is written, we don't have time and resource to update the script**
 
@@ -95,10 +95,10 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
   - Claude
   - Claude Instant
   - Embed English
-6. Create OpenSearch Serverless cluster aws-mre-collection
+6. Create OpenSearch Serverless cluster `aws-mre-collection`
   - Collection name: aws-mre-collection
   - Collection type: Vector search
-  - Deployment type: Enable redundancy (active replicas)
+  - Deployment type (Optional): Enable redundancy (active replicas)
   - Security: Standard create
   - Encryption: Use AWS owned key
   - Network access settings:
