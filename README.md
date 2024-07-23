@@ -128,7 +128,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
   OPEN_SEARCH_SERVERLESS_CLUSTER_EP: {{Open search endpoint of aws-mre-collection}} (e.g., el38g1x1i9agzdwkws10.us-east-1.aoss.amazonaws.com)
   OPEN_SEARCH_SERVERLESS_CLUSTER_REGION: us-east-1
   ```
-9. Add Data access policies for AOSS's mre-vectorsearch-collection
+9. Add principle `aws-mre-search-streaming--streamSummaryJsServiceRol` to Data access policies for AOSS's `mre-vectorsearch-collection`
 
 ## Step 4: Install `live-news-segmenter` app
 
