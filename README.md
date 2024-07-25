@@ -109,21 +109,25 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
     + Rule 1: Add all needed principals and permissions
 ![Rule 1 Config](assets/OpenSearchAccessControlRule1.png)
     + Rule 2: Add all needed principals and permissions
-    
 ![Rule 1 Config](assets/OpenSearchAccessControlRule2.png)
-7. Update some lambda functions below for missing some configurations
+
+7. Update some lambda functions below for missing some configurations:
   - DetectSceneLabels:
-   + Add Layers: MediaReplayEnginePluginHelper, Pillow, boto3, pyAV
-   + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value  `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplates...')`
+    + Add Layers: MediaReplayEnginePluginHelper, Pillow, boto3, pyAV
+    + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value  `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplates...')`
+
   - DetectCelebrities:
-   + Add Layers: MediaReplayEnginePluginHelper, Pillow, pyAV, json-repair
-   + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplate...')`
-  - DetectSpeech
-   + Add Layers: MediaReplayEnginePluginHelper, ffmpeg
+    + Add Layers: MediaReplayEnginePluginHelper, Pillow, pyAV, json-repair
+    + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplate...')`
+
+  - DetectSpeech:
+    + Add Layers: MediaReplayEnginePluginHelper, ffmpeg
+
   - SegmentNews: Also change Dynamo table names
-   + Add Layers: MediaReplayEnginePluginHelper, opensearch-py, boto3, json-repair
-   + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplate...')`
-8. Add SegmentNews environment variables
+    + Add Layers: MediaReplayEnginePluginHelper, opensearch-py, boto3, json-repair
+    + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplate...')`
+
+8. Add `SegmentNews` environment variables
   ```
   OPEN_SEARCH_SERVERLESS_CLUSTER_EP: {{Open search endpoint of aws-mre-collection}} (e.g., el38g1x1i9agzdwkws10.us-east-1.aoss.amazonaws.com)
   OPEN_SEARCH_SERVERLESS_CLUSTER_REGION: us-east-1
