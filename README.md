@@ -126,6 +126,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
   - SegmentNews: Also change Dynamo table names
     + Add Layers: MediaReplayEnginePluginHelper, opensearch-py, boto3, json-repair
     + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplate...')`
+    + Find dynamoDB table which the prefix `aws-mre-dataplane-PluginResult` and update lambda parameter with corespoding value `mre_plugin_results_table = dynamodb.Table('aws-mre-dataplane-PluginResult...')`
 
 8. Add `SegmentNews` environment variables
   ```
