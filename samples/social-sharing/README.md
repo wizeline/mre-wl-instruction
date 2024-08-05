@@ -20,3 +20,7 @@
 ### Deploy frontend
 - update Client_Id in App.js
 - Deploy to AWS (npm run deploy)
+
+### Preference links:
+- https://developers.google.com/youtube/v3/guides/using_resumable_upload_protocol
+- https://developers.google.com/identity/oauth2/web/guides/use-token-model
