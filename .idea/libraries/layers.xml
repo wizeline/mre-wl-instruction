@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="layers">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lambda-layers/layers/ffmpeg.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lambda-layers/layers/boto3.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lambda-layers/layers/pyAV.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lambda-layers/layers/opensearch-py.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lambda-layers/layers/json-repair.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lambda-layers/layers/opencv_python.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lambda-layers/layers/Pillow.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
