@@ -4,13 +4,13 @@
 
 ### Setup for youtube api
 - Following link to setup project and using youtube api: https://developers.google.com/identity/protocols/oauth2/web-server#prerequisites
---- Create project: https://console.cloud.google.com/projectcreate
-  ![alt create project](assets/create-project.png)
---- Enable for youtube API: https://console.cloud.google.com/marketplace/product/google/youtube.googleapis.com
---- Create credentials (OAuth 2.0 Client IDs)  (need to add frontend url under `Authorized JavaScript origins` and `Authorized redirect URIs` )
- ![alt create credential](assets/create-credentials.png)
---- Add test users
-  ![alt add test users](assets/add-test-users.png)
+    + Create project: https://console.cloud.google.com/projectcreate
+    + ![alt create project](assets/create-project.png)
+    + Enable for youtube API: https://console.cloud.google.com/marketplace/product/google/youtube.googleapis.com
+    + Create credentials (OAuth 2.0 Client IDs)  (need to add frontend url under `Authorized JavaScript origins` and `Authorized redirect URIs` )
+    + ![alt create credential](assets/create-credentials.png)
+    + Add test users
+    + ![alt add test users](assets/add-test-users.png)
 
 ### Deploy lambda function
 - Create bucket to upload video
