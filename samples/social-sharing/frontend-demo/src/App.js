@@ -6,7 +6,7 @@ import { useState } from 'react';
 function App() {
   const [s3File, setS3File] = useState('');
   const [isUploading, setUploading] = useState(false);
-  const [statusText, setStatusText] = useState('')
+  const [statusText, setStatusText] = useState('');
 
 
   const uploadS3 = () => {
@@ -17,6 +17,7 @@ function App() {
       client_id: '917317928460-478cnshb1mdkcbesnk2kl1ian37ju7lf.apps.googleusercontent.com',
       scope: 'https://www.googleapis.com/auth/youtube.upload',
       ux_mode: 'popup',
+      prompt: '',
       callback: (tokenResponse) => {
         if (tokenResponse && tokenResponse.access_token) {
           setStatusText('Getting token successfull!')
