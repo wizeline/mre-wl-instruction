@@ -61,7 +61,7 @@
 }
 ```
 
-## SegmentNewsRole
+## SegmentNews
 - Attach policy: `AmazonBedrockFullAccess`
 - Add the following policy in `SegmentNewsRoleDefaultPolicy`:
 
