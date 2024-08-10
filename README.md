@@ -56,7 +56,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
   - Claude
   - Claude Instant
   - Embed English
-3. In the AWS console open the `aws-mre-collection` collection and setup the right principals:
+3. In the AWS console open OpenSearch Service an open the `aws-mre-collection` collection and setup the right principals:
   - Go to Data access and open de associated policy `aws-mre-collection-access-policy`
     + In Rule 1 add these principals
       - `aws-mre-dataplane-ChaliceRole` -> Sample of principal role: `arn:aws:iam::851725259499:role/aws-mre-dataplane-ChaliceRoleF025B2F9-f0yHL9FPdvKy`
@@ -71,25 +71,53 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
 
 <!-- 8. Add `SegmentNews` environment variables -->
 
-## Step 3: Install `live-news-segmenter` app
+## Step 3: Install `live-news-segmenter` app API
 1. ### GitHub setup
-  - Create your GitHub PAT (Personal Access Token): You can visit [Video](https://www.youtube.com/watch?v=BoQ88fEDrkk) or [generate-personal-access-token](https://docs.catalyst.zoho.com/en/tutorials/githubbot/java/generate-personal-access-token/) for more information.
-  - Create the branch of the project, samples:
+  - Create the branch of the project, for example:
     + `demo-nfl`
     + `dev-nfl`
-  - Create a secret in plain text in the AWS Console in the same region you're deployig to store the GitHub PAT: 
-    + Service `Secrets Manager`
-    + Secret Type: Other type of secret
-    + Key/value pairs: Plaintext
-    + Secret name: [user.name]/github/pat
-    + No extra configurarion required
-  - Copy the file `aws-media-replay-engine-gen-ai/samples/source/live-news-segmenter/ui/cdk/template.env` to `.env` then add the Secret name and Branch
+2. ### Create the front end Amplify app
+  - Create a new Amplify app based on the branch created above
+    + Git provider: GitHub (After this AWS console will request your GitHub login)
+    + Repository
+    + Branch: the on created in the previous step (Next)
+    + App Name: live-news-segmenter-frontend-{env} i.e `live-news-segmenter-frontend-dev`
+    + Create a New Service Role: (New Browser tab)
+      - AWS Service option 
+      - Use Case: Amplify (Defaul) (Next)
+      - Add permissions (Next)
+      - Role Name: amplifyconsole-backend-role-{env} i.e `amplifyconsole-backend-role-dev` (Create Role)
+    - Go back to the Amplify app and select the created role (next)
+    - Save and Deploy
+
+  Wait until the app is fully created to continue with the next steps
 
 2. ### Run installation
 ```bash
 cd aws-media-replay-engine-gen-ai/samples/deployment
 ./build-and-deploy.sh --app [live-news-segmenter || live-news-segmenter-ui || live-news-segmenter-api] --region $REGION [--profile <aws-profile>]
 ```
+
+3. ### Amplify frontend app final setup (Env vars and custom headers)
+  - Copy the file `aws-media-replay-engine-gen-ai/samples/source/live-news-segmenter/ui/cdk/template.frontend-setup.json` and rename it to `frontend-setup.json`
+  - Update the values of the new created file
+    + "webAppURL": You can find the app domain, excluding the protocol, in the app overview. For example: `demo-nfl.d9kh5a0nalcse.amplifyapp.com`.
+    + "webAppId": You can find the app ID in the app overview
+    + "region": current deployment region
+    + "identityPoolId": You can find this in Cognito / Identity Pools under the created Identity pool which name will resemble `nabuie8b66a0e_identitypool_e8b66a0e__staging`. Use the Identity Pool ID, which will look similar to `us-west-2:03effd58-6db4-4ad5-a155-ccfec63b5311`.
+    + "userPoolId": You can find this under the User pool overview  which will look similar to `us-west-2_2xuwGhEq9`,
+    + "appClientId": You can find this under the User pool / App Integration/ App clients and App clients and analytics, get the Client ID the clientWeb one, it will look similar to `17kvktebes0dp4dbhb76qo1dm2`
+  - Run the Amplify update script
+    ```bash
+    cd aws-media-replay-engine-gen-ai/samples/source/live-news-segmenter/ui/cdk
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    python3 init-amplify.py $region [ $profile ] 2>&1
+    deactivate
+    rm -rf venv
+    ```
+  - Check the env vars in Amplify app
 
 ## Step 4: Plugins configuration:
 
