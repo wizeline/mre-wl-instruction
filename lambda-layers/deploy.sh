@@ -19,17 +19,17 @@ if [ -d "venv" ]; then
 fi
 
 echo "Creating new virtual environment..."
-python -m venv venv
+python3 -m venv venv
 
 echo "Activating virtual environment..."
 source venv/bin/activate
 
 echo "Installing dependencies..."
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 echo "Running script..."
 
 # Setup a trap to deactivate the virtual environment upon script exit
 trap "echo 'Deactivating virtual environment...'; deactivate" EXIT
 
-python lambda-layers.py
+python3 lambda-layers.py
