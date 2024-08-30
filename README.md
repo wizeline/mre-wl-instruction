@@ -47,7 +47,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
 ```
 
 <!-- 4. Create `temp-chunk-vars` table in dynamodb -->
-2. Request model access in Bedrock:
+3. Request model access in Bedrock:
   - Titan Embeddings G1 - Text
   - Titan Text G1 - Express
   - Titan Text Embeddings V2
@@ -56,7 +56,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
   - Claude
   - Claude Instant
   - Embed English
-3. In the AWS console open OpenSearch Service an open the `aws-mre-collection` collection and setup the right principals:
+4. In the AWS console open OpenSearch Service an open the `aws-mre-collection` collection and setup the right principals:
   - Go to Data access and open de associated policy `aws-mre-collection-access-policy`
     + In Rule 1 add these principals
       - `aws-mre-dataplane-ChaliceRole` -> Sample of principal role: `arn:aws:iam::851725259499:role/aws-mre-dataplane-ChaliceRoleF025B2F9-f0yHL9FPdvKy`
@@ -64,7 +64,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
     + In Rule 2 add this principal
       - `aws-mre-search-streaming--streamSummaryJsServiceRol` -> Sample of principal role: `arn:aws:iam::851725259499:role/aws-mre-search-streaming--streamSummaryJsServiceRol-9A1QHkp2k0GY`
 
-4. In the AWS console open the `mre-vectorsearch-collection` collection and setup the right principals:
+5. In the AWS console open the `mre-vectorsearch-collection` collection and setup the right principals:
   - Go to Data access and open de associated policy `mre-aoss-data-access-policy`
     + In Rule 1 add this principal:
       - `aws-mre-search-streaming--streamSummaryJsServiceRol` -> Sample of principal role: `arn:aws:iam::851725259499:role/aws-mre-search-streaming--streamSummaryJsServiceRol-9A1QHkp2k0GY`
@@ -72,10 +72,11 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
 <!-- 8. Add `SegmentNews` environment variables -->
 
 ## Step 3: Install `live-news-segmenter` app API
-1. ### GitHub setup
-  - Create the branch of the project, for example:
-    + `demo-nfl`
-    + `dev-nfl`
+1. ### Front End GitHub Setup
+   - **Repository URL**: [https://github.com/wizeline/nab-ui-2024](https://github.com/wizeline/nab-ui-2024)
+   - **Branch**: The branch for the IBC demo is already created as `demo-ibc`.
+
+   **Note**: If the current UI repository cannot be used, you should create a new one using the latest version of the code provided in `ibc-ui-2024.zip`.
 2. ### Create the front end Amplify app
   - Create a new Amplify app based on the branch created above
     + Git provider: GitHub (After this AWS console will request your GitHub login)
@@ -95,7 +96,8 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
 2. ### Run installation
 ```bash
 cd aws-media-replay-engine-gen-ai/samples/deployment
-./build-and-deploy.sh --app [live-news-segmenter || live-news-segmenter-ui || live-news-segmenter-api] --region $REGION [--profile <aws-profile>]
+./build-and-deploy.sh --app live-news-segmenter  --region $REGION [--profile <aws-profile>]
+./build-and-deploy.sh --app wl-function-samples  --region $REGION [--profile <aws-profile>]
 ```
 
 3. ### Amplify frontend app final setup (Env vars and custom headers)
@@ -118,6 +120,35 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
     rm -rf venv
     ```
   - Check the env vars in Amplify app
+  - Make sure the build image settings are the correct ones:
+    + **Build image**: Amazon Linux 2023 (default)
+    + **Build timeout**: 30
+    + **Live package updates**: Package: Amplify CLI, Version: Latest
+  - Additional Configuration
+    + Ensure that the Amplify `authRole` (e.g., `amplify-livenewssegmenterfro-prod-b61d7-authRole`) has the necessary permissions to invoke Lambda URLs. The policy should resemble the following example:
+    ```json
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Action": [
+                    "execute-api:Invoke",
+                    "execute-api:ManageConnections"
+                ],
+                "Resource": "arn:aws:execute-api:us-east-1:905418424997:*",
+                "Effect": "Allow"
+            },
+            {
+                "Action": "lambda:InvokeFunctionUrl",
+                "Resource": "arn:aws:lambda:us-east-1:905418424997:function:*",
+                "Effect": "Allow",
+                "Sid": "VisualEditor0"
+            }
+        ]
+      }
+    ```
+    + Attach the `AmazonSSMFullAccess` policy to `aws-mre-search-streaming--streamSummary` role
+
 
 ## Step 4: Plugins configuration:
 
