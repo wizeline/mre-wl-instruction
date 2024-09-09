@@ -174,14 +174,7 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
   ![DetectSpeechConfig](assets/DetectSpeechConfig.png)
 
 2. Update lambda functions below for extra configurations:
-  <!-- - DetectSceneLabels:
-    + Add Layers: MediaReplayEnginePluginHelper, Pillow, boto3, pyAV
-    + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value  `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplates...')`
-
-  - DetectCelebrities:
-    + Add Layers: MediaReplayEnginePluginHelper, Pillow, pyAV, json-repair
-    + Find dynamoDB table which the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplate...')`
-
+  <!-- 
   - DetectSpeech:
     + Add Layers: MediaReplayEnginePluginHelper, ffmpeg -->
 
@@ -195,6 +188,11 @@ cd aws-media-replay-engine-gen-ai/samples/deployment
       OPEN_SEARCH_SERVERLESS_CLUSTER_EP: {{Open search endpoint of aws-mre-collection}} (e.g., el38g1x1i9agzdwkws10.us-east-1.aoss.amazonaws.com)
       OPEN_SEARCH_SERVERLESS_CLUSTER_REGION: us-east-1 or us-west-2 depending on the case
       ```
+  - DetectCelebrities:
+    + Find dynamoDB table with the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplate...')`
+
+  - DetectSceneLabels:
+    + Find dynamoDB table with the prefix `wl-mre-custom-api-GenAiTemplates` and update lambda parameter with corespoding value  `genai_templates_table = dynamodb.Table('wl-mre-custom-api-GenAiTemplates...')`
 
 ## Step 5: Re-deploy `Gateway API stack`
 
